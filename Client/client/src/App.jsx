@@ -6,6 +6,9 @@ import DashboardPage from './pages/DashboardPage';
 import PropertyList from './components/PropertyList';
 import InquiryList from './components/InquiryList';
 import ViewingSchedule from './components/ViewingSchedule';
+import PropertyDetails from './pages/PropertyDetailPage';
+import ClientListPage from './pages/ClientListPage';
+//import AddClientPage from './pages/AddClientPage';
 
 function App() {
   return (
@@ -20,7 +23,11 @@ function App() {
         <Route path="properties" element={<PropertyList />} />
         <Route path="inquiries" element={<InquiryList />} />
         <Route path="viewings" element={<ViewingSchedule />} />
+        
       </Route>
+      <Route path="/dashboard/clients" element={<ClientListPage />} />
+
+<Route path="/property/:id" element={<PropertyDetails />} />
     </Routes>
   );
 }

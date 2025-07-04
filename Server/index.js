@@ -5,6 +5,7 @@ const propertyRoutes = require('./routes/propertyRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const viewingRoutes = require('./routes/viewingRoutes');
 const inquiryRoutes = require('./routes/inquiryRoutes');
+//const clientRoutes = require('./routes/clientRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('/api/properties', propertyRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/viewings', viewingRoutes);
 app.use('/api/inquiries', inquiryRoutes);
+//app.use('/api/clients', clientRoutes);
 
 // Sample route
 app.get('/', (req, res) => {

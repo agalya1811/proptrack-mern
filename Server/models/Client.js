@@ -5,7 +5,7 @@ const clientSchema = new mongoose.Schema({
   email: String,
   phone: String,
   property: { type: mongoose.Schema.Types.ObjectId, ref: 'Property' },
-  message: String,
+  message: String
 }, { timestamps: true });
 
 module.exports = mongoose.model('Client', clientSchema);

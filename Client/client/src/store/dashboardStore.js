@@ -5,9 +5,11 @@ const useDashboardStore = create((set) => ({
   properties: [],
   inquiries: [],
   viewings: [],
+  clients: [],         // ✅ Add clients array
   loading: false,
   filters: {},
 
+  // --- Existing methods ---
   fetchProperties: async (filters = {}) => {
     set({ loading: true });
     try {
@@ -33,7 +35,7 @@ const useDashboardStore = create((set) => ({
   fetchViewings: async () => {
     set({ loading: true });
     try {
-      const res = await API.get('/viewings');
+      const res = await API.get('/api/viewings');
       set({ viewings: res.data, loading: false });
     } catch (err) {
       console.error(err);
@@ -45,7 +47,10 @@ const useDashboardStore = create((set) => ({
     set({ loading: true });
     try {
       const res = await API.post('/api/properties', property);
-      set((state) => ({ properties: [...state.properties, res.data], loading: false }));
+      set((state) => ({
+        properties: [...state.properties, res.data],
+        loading: false
+      }));
     } catch (err) {
       console.error(err);
       set({ loading: false });
@@ -83,7 +88,32 @@ const useDashboardStore = create((set) => ({
     }
   },
 
-  // Similar methods can be added for inquiries and viewings updates
+  // --- ✅ NEW: Clients support ---
+  fetchClients: async () => {
+    set({ loading: true });
+    try {
+      const res = await API.get('/api/clients');
+      set({ clients: res.data, loading: false });
+    } catch (err) {
+      console.error('Error fetching clients:', err);
+      set({ loading: false });
+    }
+  },
+
+  addClient: async (client) => {
+    set({ loading: true });
+    try {
+      const res = await API.post('/api/clients', client);
+      set((state) => ({
+        clients: [...state.clients || [], res.data],
+        loading: false,
+      }));
+    } catch (err) {
+      console.error('Error adding client:', err);
+      set({ loading: false });
+      throw err;
+    }
+  },
 }));
 
 export default useDashboardStore;
