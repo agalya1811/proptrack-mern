@@ -5,7 +5,11 @@ const AgentDashboardLayout = () => {
   return (
     <div className="flex min-h-screen">
       <nav className="w-60 bg-gray-100 p-4">
-        <h2 className="font-bold mb-6">Agent Dashboard</h2>
+        <Link to="/dashboard">
+          <h2 className="font-bold mb-6 text-blue-600 hover:underline cursor-pointer">
+            Agent Dashboard
+          </h2>
+        </Link>
         <ul>
           <li><Link to="properties" className="block py-2">Properties</Link></li>
           <li><Link to="inquiries" className="block py-2">Inquiries</Link></li>
