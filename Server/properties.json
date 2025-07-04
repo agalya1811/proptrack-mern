@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Modern Villa in Dubai Hills",
+    "description": "A luxurious 5 BHK villa with pool and garden.",
+    "price": 3500000,
+    "type": "sale",
+    "location": "Dubai Hills",
+    "amenities": ["Pool", "Gym", "Parking"],
+    "images": ["https://via.placeholder.com/400"],
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "area": 4200,
+    "isActive": true,
+    "createdAt": "2024-06-01T10:00:00.000Z"
+  },
+  {
+    "title": "Cozy Apartment in Business Bay",
+    "description": "Fully furnished 2 BHK apartment with balcony view.",
+    "price": 120000,
+    "type": "rent",
+    "location": "Business Bay",
+    "amenities": ["Elevator", "Security"],
+    "images": ["https://via.placeholder.com/400"],
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 1200,
+    "isActive": true,
+    "createdAt": "2024-06-02T12:00:00.000Z"
+  }
+]

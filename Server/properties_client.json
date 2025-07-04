@@ -1,0 +1,29 @@
+[
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+971501234567",
+    "property": "64a1c2f5e8b4a6e1d2f3c4b5",
+    "message": "I'm interested in scheduling a viewing for this property.",
+    "createdAt": "2025-07-03T10:00:00.000Z",
+    "updatedAt": "2025-07-03T10:00:00.000Z"
+  },
+  {
+    "name": "Fatima Ali",
+    "email": "fatima.ali@samplemail.com",
+    "phone": "+971502345678",
+    "property": "64a1c2f5e8b4a6e1d2f3c4b6",
+    "message": "Can you share more details about the neighborhood and schools?",
+    "createdAt": "2025-07-03T11:15:00.000Z",
+    "updatedAt": "2025-07-03T11:15:00.000Z"
+  },
+  {
+    "name": "Michael Smith",
+    "email": "m.smith@gmail.com",
+    "phone": "+971503456789",
+    "property": "64a1c2f5e8b4a6e1d2f3c4b7",
+    "message": "Is this property still available? I’m a cash buyer.",
+    "createdAt": "2025-07-03T13:45:00.000Z",
+    "updatedAt": "2025-07-03T13:45:00.000Z"
+  }
+]

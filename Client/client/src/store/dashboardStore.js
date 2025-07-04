@@ -11,7 +11,7 @@ const useDashboardStore = create((set) => ({
   fetchProperties: async (filters = {}) => {
     set({ loading: true });
     try {
-      const res = await API.get('/properties', { params: filters });
+      const res = await API.get('/api/properties', { params: filters });
       set({ properties: res.data, filters, loading: false });
     } catch (err) {
       console.error(err);
@@ -22,7 +22,7 @@ const useDashboardStore = create((set) => ({
   fetchInquiries: async () => {
     set({ loading: true });
     try {
-      const res = await API.get('/clients');
+      const res = await API.get('/api/inquiries');
       set({ inquiries: res.data, loading: false });
     } catch (err) {
       console.error(err);
@@ -44,7 +44,7 @@ const useDashboardStore = create((set) => ({
   addProperty: async (property) => {
     set({ loading: true });
     try {
-      const res = await API.post('/properties', property);
+      const res = await API.post('/api/properties', property);
       set((state) => ({ properties: [...state.properties, res.data], loading: false }));
     } catch (err) {
       console.error(err);
@@ -56,7 +56,7 @@ const useDashboardStore = create((set) => ({
   updateProperty: async (id, updates) => {
     set({ loading: true });
     try {
-      const res = await API.put(`/properties/${id}`, updates);
+      const res = await API.put(`/api/properties/${id}`, updates);
       set((state) => ({
         properties: state.properties.map(p => p._id === id ? res.data : p),
         loading: false,
@@ -71,7 +71,7 @@ const useDashboardStore = create((set) => ({
   deleteProperty: async (id) => {
     set({ loading: true });
     try {
-      await API.delete(`/properties/${id}`);
+      await API.delete(`/api/properties/${id}`);
       set((state) => ({
         properties: state.properties.filter(p => p._id !== id),
         loading: false,

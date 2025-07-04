@@ -8,7 +8,7 @@ const usePropertyStore = create((set) => ({
   fetchProperties: async (filters = {}) => {
     set({ loading: true });
     try {
-      const res = await API.get('/properties', { params: filters });
+      const res = await API.get('/api/properties', { params: filters });
       set({ properties: res.data, filters, loading: false });
     } catch (err) {
       console.error(err);

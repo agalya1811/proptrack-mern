@@ -1,27 +1,20 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
-const usePropertyStore = create((set) => ({
+const usePropertyStore = create((set,get) => ({
   properties: [],
   totalPages: 1,
   currentPage: 1,
   isLoading: false,
 
-  fetchProperties: async (filters, page = 1) => {
-    set({ isLoading: true });
+   fetchProperties: async (filters = {}) => {
+    set({ loading: true });
     try {
-      const res = await axios.get(`http://localhost:5000/api/properties`, {
-        params: { ...filters, page },
-      });
-      set({
-        properties: res.data.properties,
-        totalPages: res.data.totalPages,
-        currentPage: page,
-        isLoading: false,
-      });
+      const res = await axios.get(`http://localhost:5000/api/properties`, { params: filters });
+      set({ properties: res.data, filters, loading: false });
     } catch (err) {
       console.error(err);
-      set({ isLoading: false });
+      set({ loading: false });
     }
   },
 }));

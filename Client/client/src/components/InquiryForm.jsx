@@ -1,23 +1,70 @@
 import React, { useState } from 'react';
-import API from '../services/api';
+import axios from 'axios';
 
-const InquiryForm = ({ propertyId }) => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+const InquiryForm = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [property, setProperty] = useState(''); // Optional: you can prefill or pass it as props
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await API.post('/clients', { ...form, property: propertyId });
-    alert('Inquiry submitted!');
-    setForm({ name: '', email: '', message: '' });
+    try {
+      const inquiryData = { name, email, phone, message, property };
+      const response = await axios.post('http://localhost:5000/api/inquiries', inquiryData);
+      alert('Inquiry submitted!');
+      // Clear form
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+      setProperty('');
+    } catch (error) {
+      console.error('Error submitting inquiry:', error);
+      alert('Submission failed.');
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 space-y-2">
-      <h3 className="font-semibold">Send Inquiry</h3>
-      <input required placeholder="Name" className="border p-2 w-full" onChange={e => setForm({ ...form, name: e.target.value })} value={form.name} />
-      <input required placeholder="Email" className="border p-2 w-full" onChange={e => setForm({ ...form, email: e.target.value })} value={form.email} />
-      <textarea placeholder="Message" className="border p-2 w-full" onChange={e => setForm({ ...form, message: e.target.value })} value={form.message}></textarea>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded shadow-md max-w-md bg-white">
+      <h3 className="text-lg font-semibold">Submit Inquiry</h3>
+      <input
+        type="text"
+        placeholder="Your Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="w-full p-2 border rounded"
+        required
+      />
+      <input
+        type="email"
+        placeholder="Your Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-2 border rounded"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Your Phone"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        className="w-full p-2 border rounded"
+      />
+      <textarea
+        placeholder="Your Message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        className="w-full p-2 border rounded"
+        rows="4"
+      ></textarea>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        Submit
+      </button>
     </form>
   );
 };

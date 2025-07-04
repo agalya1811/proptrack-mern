@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useDashboardStore from '../store/dashboardStore';
 import PropertyForm from './PropertyForm';
+import { Link } from 'react-router-dom';
 
 const PropertyList = () => {
   const { properties, fetchProperties, deleteProperty, loading } = useDashboardStore();
@@ -20,8 +21,20 @@ const PropertyList = () => {
     <div>
       <h2 className="text-xl font-bold mb-4">Manage Properties</h2>
       {loading && <p>Loading...</p>}
-      <button onClick={() => setEditingProperty({})} className="mb-4 px-3 py-1 bg-blue-600 text-white rounded">Add New Property</button>
-      
+      <div className="flex gap-4 mb-4">
+  <button
+    onClick={() => setEditingProperty({})}
+    className="px-3 py-1 bg-blue-600 text-white rounded"
+  >
+    Add New Property
+  </button>
+
+  <Link to="/dashboard">
+    <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+      Go to Dashboard
+    </button>
+  </Link>
+</div>
       {editingProperty && (
         <PropertyForm property={editingProperty} onClose={() => setEditingProperty(null)} />
       )}

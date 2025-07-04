@@ -4,6 +4,7 @@ const cors = require('cors');
 const propertyRoutes = require('./routes/propertyRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const viewingRoutes = require('./routes/viewingRoutes');
+const inquiryRoutes = require('./routes/inquiryRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/api/properties', propertyRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/viewings', viewingRoutes);
+app.use('/api/inquiries', inquiryRoutes);
 
 // Sample route
 app.get('/', (req, res) => {
