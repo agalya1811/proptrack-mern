@@ -20,20 +20,37 @@ const PropertyFilters = () => {
   };
 
   const resetFilters = () => {
-    setFilters({ location: '', type: '', minPrice: '', maxPrice: '' });
+    const cleared = { location: '', type: '', minPrice: '', maxPrice: '' };
+    setFilters(cleared);
     fetchProperties(); // reset to full list
   };
 
+  const locations = [
+    'Downtown Dubai',
+    'Dubai Marina',
+    'Jumeirah Beach Residence',
+    'Business Bay',
+    'Palm Jumeirah',
+  ];
+
   return (
     <form onSubmit={applyFilters} className="flex flex-wrap gap-2 mb-4">
-      <input
-        type="text"
+      {/* Location Dropdown */}
+      <select
         name="location"
-        placeholder="Location"
         value={filters.location}
         onChange={handleChange}
         className="border p-2 rounded w-40"
-      />
+      >
+        <option value="">All Locations</option>
+        {locations.map((loc) => (
+          <option key={loc} value={loc}>
+            {loc}
+          </option>
+        ))}
+      </select>
+
+      {/* Type Dropdown */}
       <select
         name="type"
         value={filters.type}
@@ -44,6 +61,8 @@ const PropertyFilters = () => {
         <option value="sale">Sale</option>
         <option value="rent">Rent</option>
       </select>
+
+      {/* Min/Max Price */}
       <input
         type="number"
         name="minPrice"
@@ -60,6 +79,8 @@ const PropertyFilters = () => {
         onChange={handleChange}
         className="border p-2 rounded w-32"
       />
+
+      {/* Buttons */}
       <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
         Apply
       </button>
