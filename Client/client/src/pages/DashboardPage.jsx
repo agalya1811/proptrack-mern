@@ -16,18 +16,24 @@ const DashboardPage = () => {
    console.log("PROPERTIES:", properties);
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Agent Dashboard</h1>
-      <Link to="/">
-      <button className="flex justify-between items-center mb-6 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-5 py-2 rounded-lg shadow-md transition-all duration-200">
+   <div className="p-6">
+  {/* Top-left Buttons */}
+  <div className="flex items-center gap-3 mb-4">
+    <Link to="/">
+      <button className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-200">
         🏠 Home
       </button>
     </Link>
     <Link to="/dashboard/clients">
-  <button className="bg-green-500 text-white px-4 py-2 rounded mt-4">
-    View Clients
-  </button>
-</Link>
+      <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow">
+        View Clients
+      </button>
+    </Link>
+  </div>
+
+  {/* Dashboard Title */}
+  <h1 className="text-3xl font-bold mb-6">Agent Dashboard</h1>
+
 
 <section className="mb-8">
   <h2 className="text-xl font-semibold mb-2">Properties</h2>
