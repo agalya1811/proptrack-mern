@@ -30,7 +30,7 @@ const PropertyForm = ({ property, onClose }) => {
   }, [property]);
 
   const handleChange = (e) => {
-    setForm({...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -59,27 +59,108 @@ const PropertyForm = ({ property, onClose }) => {
   };
 
   return (
-    <div className="border p-4 mb-6">
-      <h3 className="font-semibold mb-4">{isEdit ? 'Edit Property' : 'Add Property'}</h3>
-      <form onSubmit={handleSubmit} className="space-y-2">
-        <input name="title" value={form.title} onChange={handleChange} placeholder="Title" required className="border p-2 w-full" />
-        <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" className="border p-2 w-full" />
-        <input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price" required className="border p-2 w-full" />
-        <select name="type" value={form.type} onChange={handleChange} className="border p-2 w-full">
+    <div className="bg-white shadow-lg rounded-xl p-6 max-w-xl w-full mx-auto">
+      <h3 className="text-xl font-semibold text-blue-700 mb-4">
+        {isEdit ? 'Edit Property' : 'Add Property'}
+      </h3>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          placeholder="Title"
+          required
+          className="w-full border rounded p-2"
+        />
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Description"
+          className="w-full border rounded p-2"
+        />
+        <input
+          name="price"
+          type="number"
+          value={form.price}
+          onChange={handleChange}
+          placeholder="Price"
+          required
+          className="w-full border rounded p-2"
+        />
+        <select
+          name="type"
+          value={form.type}
+          onChange={handleChange}
+          className="w-full border rounded p-2"
+        >
           <option value="rent">Rent</option>
           <option value="sale">Sale</option>
         </select>
-        <input name="location" value={form.location} onChange={handleChange} placeholder="Location" required className="border p-2 w-full" />
-        <input name="amenities" value={form.amenities} onChange={handleChange} placeholder="Amenities (comma separated)" className="border p-2 w-full" />
-        <input name="images" value={form.images} onChange={handleChange} placeholder="Images URLs (comma separated)" className="border p-2 w-full" />
-        <input name="bedrooms" type="number" value={form.bedrooms} onChange={handleChange} placeholder="Bedrooms" className="border p-2 w-full" />
-        <input name="bathrooms" type="number" value={form.bathrooms} onChange={handleChange} placeholder="Bathrooms" className="border p-2 w-full" />
-        <input name="area" type="number" value={form.area} onChange={handleChange} placeholder="Area (sq ft)" className="border p-2 w-full" />
-        <div className="flex gap-2">
-          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
+        <input
+          name="location"
+          value={form.location}
+          onChange={handleChange}
+          placeholder="Location"
+          required
+          className="w-full border rounded p-2"
+        />
+        <input
+          name="amenities"
+          value={form.amenities}
+          onChange={handleChange}
+          placeholder="Amenities (comma separated)"
+          className="w-full border rounded p-2"
+        />
+        <input
+          name="images"
+          value={form.images}
+          onChange={handleChange}
+          placeholder="Image URLs (comma separated)"
+          className="w-full border rounded p-2"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <input
+            name="bedrooms"
+            type="number"
+            value={form.bedrooms}
+            onChange={handleChange}
+            placeholder="Bedrooms"
+            className="border rounded p-2"
+          />
+          <input
+            name="bathrooms"
+            type="number"
+            value={form.bathrooms}
+            onChange={handleChange}
+            placeholder="Bathrooms"
+            className="border rounded p-2"
+          />
+          <input
+            name="area"
+            type="number"
+            value={form.area}
+            onChange={handleChange}
+            placeholder="Area (sq ft)"
+            className="border rounded p-2"
+          />
+        </div>
+
+        <div className="flex justify-end gap-3 pt-4">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 rounded border hover:bg-gray-100"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          >
             {isEdit ? 'Update' : 'Add'}
           </button>
-          <button type="button" onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>
         </div>
       </form>
     </div>

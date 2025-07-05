@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useDashboardStore from '../store/dashboardStore';
 import PropertyForm from './PropertyForm';
 import { useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const PropertyList = () => {
   const { properties, fetchProperties, deleteProperty, loading } = useDashboardStore();
@@ -13,72 +14,72 @@ const PropertyList = () => {
   }, []);
 
   const handleDelete = (id) => {
-    if (window.confirm('Delete this property?')) {
+    if (window.confirm('Are you sure you want to delete this property?')) {
       deleteProperty(id);
     }
   };
 
   return (
-    <div className="p-6">
+    <div className="p-8 max-w-screen-lg mx-auto">
       {/* Top Bar */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-6">
         <button
           onClick={() => navigate(-1)}
-          className="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded"
+          className="bg-gray-300 hover:bg-gray-400 text-black px-5 py-2 rounded shadow"
         >
           ← Back
         </button>
 
         <button
           onClick={() => setEditingProperty({})}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-5 py-2 rounded shadow"
         >
-          Add New Property
+          + Add New Property
         </button>
-        
       </div>
 
-      <h2 className="text-2xl font-semibold mb-4">Manage Properties</h2>
+      <h2 className="text-3xl font-bold mb-4 text-gray-800">Manage Properties</h2>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className="text-gray-600 mb-4">Loading...</p>}
 
-      <div className="overflow-x-auto">
-        <table className="w-full border border-gray-300 rounded shadow-sm text-sm">
-          <thead className="bg-gray-100 text-gray-700">
+      {/* Table */}
+      <div className="rounded-lg overflow-hidden border border-gray-200 shadow-lg">
+        <table className="w-full text-sm text-gray-800 bg-gradient-to-b from-white via-gray-50 to-gray-100">
+          <thead className="bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 font-semibold">
             <tr>
-              <th className="px-4 py-2 border">Title</th>
-              <th className="px-4 py-2 border">Price</th>
-              <th className="px-4 py-2 border">Type</th>
-              <th className="px-4 py-2 border">Location</th>
-              <th className="px-4 py-2 border">Actions</th>
+              <th className="px-5 py-3 border-b">Title</th>
+              <th className="px-5 py-3 border-b">Price</th>
+              <th className="px-5 py-3 border-b">Type</th>
+              <th className="px-5 py-3 border-b">Location</th>
+              <th className="px-5 py-3 border-b text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {properties.map((p) => (
-              <tr key={p._id} className="text-center hover:bg-gray-50 transition">
-                <td className="px-4 py-2 border">{p.title}</td>
-                <td className="px-4 py-2 border">${p.price}</td>
-                <td className="px-4 py-2 border">{p.type}</td>
-                <td className="px-4 py-2 border">{p.location}</td>
-                <td className="px-4 py-2 border space-x-2">
+              <tr key={p._id} className="hover:bg-white/70 transition">
+                <td className="px-5 py-3 border-b">{p.title}</td>
+                <td className="px-5 py-3 border-b">${p.price}</td>
+                <td className="px-5 py-3 border-b">{p.type}</td>
+                <td className="px-5 py-3 border-b">{p.location}</td>
+                <td className="px-5 py-3 border-b text-center">
                   <button
                     onClick={() => setEditingProperty(p)}
-                    className="text-blue-600 hover:underline"
+                    className="inline-flex items-center bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white px-3 py-1 rounded mr-2 text-sm shadow"
                   >
-                    Edit
+                    <FaEdit className="mr-1" /> Edit
                   </button>
                   <button
                     onClick={() => handleDelete(p._id)}
-                    className="text-red-600 hover:underline"
+                    className="inline-flex items-center bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white px-3 py-1 rounded text-sm shadow"
                   >
-                    Delete
+                    <FaTrash className="mr-1" /> Delete
                   </button>
                 </td>
               </tr>
             ))}
             {properties.length === 0 && (
               <tr>
-                <td colSpan="5" className="text-center py-4 text-gray-500">
+                <td colSpan="5" className="text-center py-6 text-gray-500">
                   No properties available.
                 </td>
               </tr>
@@ -89,30 +90,31 @@ const PropertyList = () => {
 
       {/* Modal for Add/Edit Property */}
       {editingProperty && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50"
-          onClick={() => setEditingProperty(null)}
-        >
-          <div
-            className="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[500px]"
-            onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside
-          >
-            <h3 className="text-lg font-semibold mb-4">
-              {editingProperty._id ? 'Edit Property' : 'Add New Property'}
-            </h3>
-            <PropertyForm
-              property={editingProperty}
-              onClose={() => setEditingProperty(null)}
-            />
-            <button
-              onClick={() => setEditingProperty(null)}
-              className="mt-4 bg-red-500 text-white px-4 py-2 rounded"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+  <div
+    className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-50"
+    onClick={() => setEditingProperty(null)}
+  >
+    <div
+      className="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[500px]"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h3 className="text-lg font-semibold mb-4">
+        {editingProperty._id ? 'Edit Property' : 'Add New Property'}
+      </h3>
+      <PropertyForm
+        property={editingProperty}
+        onClose={() => setEditingProperty(null)}
+      />
+      <button
+        onClick={() => setEditingProperty(null)}
+        className="mt-4 bg-red-500 text-white px-4 py-2 rounded"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

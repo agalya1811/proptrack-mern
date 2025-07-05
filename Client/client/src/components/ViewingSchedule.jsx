@@ -123,141 +123,151 @@ const ViewingSchedule = () => {
       </div>
 
       {/* Modal for Add/Edit */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-full max-w-md relative">
-            <h3 className="text-xl font-semibold mb-4">
-              {editingViewingId ? 'Edit Viewing' : 'Schedule Viewing'}
-            </h3>
+     {showModal && (
+  <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-white shadow-xl border border-gray-200 rounded-lg p-6 w-full max-w-md z-50">
+    <h3 className="text-xl font-semibold mb-4">
+      {editingViewingId ? 'Edit Viewing' : 'Schedule Viewing'}
+    </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <label className="block">
-                Client:
-                <select
-                  name="client"
-                  value={formData.client}
-                  onChange={handleChange}
-                  required
-                  className="w-full border p-2 rounded mt-1"
-                >
-                  <option value="">Select a client</option>
-                  {clients.map((c) => (
-                    <option key={c._id} value={c._id}>
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <label className="block">
+        Client:
+        <select
+          name="client"
+          value={formData.client}
+          onChange={handleChange}
+          required
+          className="w-full border p-2 rounded mt-1"
+        >
+          <option value="">Select a client</option>
+          {clients.map((c) => (
+            <option key={c._id} value={c._id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+      </label>
 
-              <label className="block">
-                Property:
-                <select
-                  name="property"
-                  value={formData.property}
-                  onChange={handleChange}
-                  required
-                  className="w-full border p-2 rounded mt-1"
-                >
-                  <option value="">Select a property</option>
-                  {properties.map((p) => (
-                    <option key={p._id} value={p._id}>
-                      {p.title}
-                    </option>
-                  ))}
-                </select>
-              </label>
+      <label className="block">
+        Property:
+        <select
+          name="property"
+          value={formData.property}
+          onChange={handleChange}
+          required
+          className="w-full border p-2 rounded mt-1"
+        >
+          <option value="">Select a property</option>
+          {properties.map((p) => (
+            <option key={p._id} value={p._id}>
+              {p.title}
+            </option>
+          ))}
+        </select>
+      </label>
 
-              <label className="block">
-                Scheduled Date & Time:
-                <input
-                  type="datetime-local"
-                  name="scheduledAt"
-                  value={formData.scheduledAt}
-                  onChange={handleChange}
-                  required
-                  className="w-full border p-2 rounded mt-1"
-                />
-              </label>
+      <label className="block">
+        Scheduled Date & Time:
+        <input
+          type="datetime-local"
+          name="scheduledAt"
+          value={formData.scheduledAt}
+          onChange={handleChange}
+          required
+          className="w-full border p-2 rounded mt-1"
+        />
+      </label>
 
-              <label className="block">
-                Status:
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
-                  className="w-full border p-2 rounded mt-1"
-                >
-                  <option value="scheduled">Scheduled</option>
-                  <option value="completed">Completed</option>
-                  <option value="no-show">No-show</option>
-                </select>
-              </label>
+      <label className="block">
+        Status:
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+          className="w-full border p-2 rounded mt-1"
+        >
+          <option value="scheduled">Scheduled</option>
+          <option value="completed">Completed</option>
+          <option value="no-show">No-show</option>
+        </select>
+      </label>
 
-              <label className="block">
-                Notes:
-                <textarea
-                  name="notes"
-                  value={formData.notes}
-                  onChange={handleChange}
-                  placeholder="Internal notes"
-                  className="w-full border p-2 rounded mt-1"
-                />
-              </label>
+      <label className="block">
+        Notes:
+        <textarea
+          name="notes"
+          value={formData.notes}
+          onChange={handleChange}
+          placeholder="Internal notes"
+          className="w-full border p-2 rounded mt-1"
+        />
+      </label>
 
-              <div className="flex justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={cancelEdit}
-                  className="px-4 py-2 border rounded hover:bg-gray-200"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                >
-                  {editingViewingId ? 'Update Viewing' : 'Schedule Viewing'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      <div className="flex justify-end gap-2 pt-2">
+        <button
+          type="button"
+          onClick={cancelEdit}
+          className="px-4 py-2 border rounded hover:bg-gray-200"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          {editingViewingId ? 'Update Viewing' : 'Schedule Viewing'}
+        </button>
+      </div>
+    </form>
+  </div>
+)}
+
 
       {/* Existing Viewings Table */}
-      <table className="w-full border-collapse border border-gray-300">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="border border-gray-300 p-2">Property</th>
-            <th className="border border-gray-300 p-2">Client</th>
-            <th className="border border-gray-300 p-2">Scheduled At</th>
-            <th className="border border-gray-300 p-2">Status</th>
-            <th className="border border-gray-300 p-2">Notes</th>
-            <th className="border border-gray-300 p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {viewings.map((v) => (
-            <tr key={v._id}>
-              <td className="border border-gray-300 p-2">{v.property?.title || 'N/A'}</td>
-              <td className="border border-gray-300 p-2">{v.client?.name || 'N/A'}</td>
-              <td className="border border-gray-300 p-2">
-                {new Date(v.scheduledAt).toLocaleString()}
-              </td>
-              <td className="border border-gray-300 p-2">{v.status}</td>
-              <td className="border border-gray-300 p-2">{v.notes}</td>
-              <td className="border border-gray-300 p-2">
-                <button
-                  onClick={() => startEdit(v)}
-                  className="text-blue-600 hover:underline"
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* Styled Viewings Table */}
+<div className="rounded-lg overflow-hidden border border-gray-200 shadow-lg mt-4">
+  <table className="w-full text-sm text-gray-800 bg-gradient-to-b from-white via-gray-50 to-gray-100">
+    <thead className="bg-gradient-to-r from-cyan-100 to-blue-100 text-blue-800 font-semibold">
+      <tr>
+        <th className="px-4 py-3 border-b">Property</th>
+        <th className="px-4 py-3 border-b">Client</th>
+        <th className="px-4 py-3 border-b">Scheduled At</th>
+        <th className="px-4 py-3 border-b">Status</th>
+        <th className="px-4 py-3 border-b">Notes</th>
+        <th className="px-4 py-3 border-b text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {viewings.map((v) => (
+        <tr key={v._id} className="hover:bg-white/70 transition text-center">
+          <td className="px-4 py-3 border-b">{v.property?.title || 'N/A'}</td>
+          <td className="px-4 py-3 border-b">{v.client?.name || 'N/A'}</td>
+          <td className="px-4 py-3 border-b">
+            {new Date(v.scheduledAt).toLocaleString()}
+          </td>
+          <td className="px-4 py-3 border-b capitalize">{v.status}</td>
+          <td className="px-4 py-3 border-b">{v.notes}</td>
+          <td className="px-4 py-3 border-b">
+            <button
+              onClick={() => startEdit(v)}
+              className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-3 py-1 rounded text-sm hover:from-blue-600 hover:to-blue-800 shadow"
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
+      ))}
+      {viewings.length === 0 && (
+        <tr>
+          <td colSpan="6" className="text-center py-6 text-gray-500">
+            No viewings scheduled.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
     </div>
   );
 };
